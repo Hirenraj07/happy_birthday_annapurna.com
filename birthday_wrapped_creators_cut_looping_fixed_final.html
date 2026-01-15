@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Birthday Wrapped – Creator’s Cut (Looping)</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lottie-web@5.12.2/build/player/lottie.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Poppins',sans-serif}
+body{background:#000;color:#fff;overflow:hidden}
+.screen{display:none;height:100vh;width:100vw;justify-content:center;align-items:center;flex-direction:column;text-align:center;padding:20px}
+.screen.active{display:flex}
+#dob-screen h1{font-size:2.4rem;margin-bottom:20px}
+input{padding:14px 20px;border-radius:30px;border:none;font-size:1rem}
+button{margin-top:20px;padding:14px 30px;border:none;border-radius:40px;font-size:1rem;cursor:pointer;color:#fff;background:linear-gradient(135deg,#ff2a68,#7f5cff)}
+.birthday-text{font-size:3.2rem;font-weight:900;margin-top:20px;animation:pulse 1.5s infinite alternate}
+@keyframes pulse{from{transform:scale(1)}to{transform:scale(1.08)}}
+.story{display:none;height:100vh;width:100vw;background-size:contain;background-repeat:no-repeat;background-position:center;align-items:flex-end;padding:40px}
+.story.active{display:flex;animation:fadeUp 1s ease}
+.story-box{background:rgba(0,0,0,0.7);padding:25px;border-radius:20px;max-width:700px;max-height:65vh;overflow-y:auto;text-align:left}
+.story-box h2{font-size:2.2rem;margin-bottom:12px}
+.story-box p{font-size:1.05rem;line-height:1.7}
+@keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+.hint{position:absolute;bottom:20px;width:100%;text-align:center;font-size:0.9rem;opacity:0.7}
+.gradient-jan{background:linear-gradient(135deg,#ff512f,#dd2476)}
+.gradient-aug{background:linear-gradient(135deg,#24c6dc,#514a9d)}
+.gradient-sep{background:linear-gradient(135deg,#8360c3,#2ebf91)}
+#endBtn{position:fixed;bottom:20px;right:20px;padding:10px 22px;border-radius:30px;border:none;font-size:.95rem;background:rgba(255,255,255,0.15);color:#fff;backdrop-filter:blur(10px);cursor:pointer;z-index:999}
+#endBtn:hover{background:rgba(255,255,255,0.25)}
+</style>
+</head>
+<body>
+<audio id="birthdaySound" preload="auto" src="https://assets.mixkit.co/sfx/preview/mixkit-happy-birthday-crowd-464.mp3"></audio>
+<audio id="bgMusic" preload="auto" src="Dandelions┃EPIC VERSION - Extended.mp3" loop></audio>
+
+<div id="dob-screen" class="screen active">
+<h1>Enter Your Date of Birth 🎂</h1>
+<input type="date" id="dob" />
+<button onclick="checkDOB()">Continue</button>
+</div>
+
+<div id="birthday-screen" class="screen">
+<div id="lottie" style="width:220px;height:220px"></div>
+<div class="birthday-text">Happy Birthday Annapurna 🎉</div>
+<button onclick="startJourney()">Start Your Journey →</button>
+</div>
+
+<div id="wrapped" class="screen gradient-jan">
+<button id="endBtn" onclick="goToEnd()">End</button>
+
+<div class="story active" style="background-image:url('IMG-20260111-WA0000.jpg')">
+<div class="story-box"><h2>Jan – Aug</h2><p>It was a lot of figuring-out phase where everyone realised the truth about studies, college, and career choices. It was more research-centric and involved a lot of friend gatherings.</p></div></div>
+
+<div class="story" style="background-image:url('IMG-20260111-WA0001.jpg')">
+<div class="story-box"><h2>Aug – Sep</h2><p>This was a low-burn phase where everyone was competing for placements, writing and learning for mid-term exams at the last moment, or doing one-day batting and irregularly attending classes. It was a really fun phase with a few gatherings and peak gym performance, with or without motivation, hitting PRs every 2–3 weeks. This phase had its own perks.</p></div></div>
+
+<div class="story" style="background-image:url('IMG-20260111-WA0004.jpg')">
+<div class="story-box"><h2>Sep – Dec</h2><p>This phase was the most drastic, fast, and somewhat deep settling phase of life where everything seemed confusing, emotional, tiring, and not adapting quickly, causing a lot of thoughts. But it was the most prosperous phase with job landing and going to a corporate. It wasn't easy to digest the fact that B.Tech life had nearly ended, but it was all for the best. Getting a job early in a career, learning a lot of skills in the company, adapting to deadlines, having company gatherings like dinner and outings, Secret Santa, etc. Though it was difficult, it was the best-ever phase and God's fruit for all the hard work, sweat, and determination towards the goal. The next phase will be even more interesting, with lots of learning, earning, higher studies, and becoming a highly respected and qualified individual. This phase helped you push yourself to a level you couldn't even comprehend—observing and reinforcing yourself in every environment, be it bus, metro, movie, or whatever. It helped you be grateful and proud of yourself and made your family and friends proud by becoming a self-independent, graceful woman. A birthday where you could practice grace, go to temples, try being yourself, and culminate the highest form of simplicity to satisfy your conscience—transforming into the best and happiest birthday ever. That is what I hope for you as a well-wisher friend. Live long and always be the kind person you are, no matter what—and maybe reduce a little attitude. God bless you, protect your family, and lead you to a successful and fruitful life.</p></div></div>
+
+<div class="hint">Tap or swipe right to continue</div>
+</div>
+
+<div id="final" class="screen">
+<h1 style="font-size:2.6rem">This was your Wrapped ✨</h1>
+<p style="max-width:600px;margin-top:20px;font-size:1.2rem;opacity:0.9">The next chapter is waiting.</p>
+<button onclick="endWrap()">End Wrap</button>
+<p style="margin-top:25px;font-size:.9rem;opacity:.7">— From someone who’s proud of you</p>
+</div>
+
+<div id="photo" class="screen" style="padding:0">
+<div style="position:relative;width:100%;height:100%">
+<img src="1000084513.jpg" style="width:100%;height:100%;object-fit:cover" />
+<div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.7),rgba(0,0,0,.4))"></div>
+<div style="position:absolute;top:40px;width:100%;text-align:center">
+<h2 style="font-size:2.5rem">Always grateful 🤍</h2>
+<p style="margin-top:10px;font-size:1.1rem;opacity:.9">For moments, memories & people</p>
+</div>
+</div>
+</div>
+
+<script>
+const correctDOB="2005-01-16";
+const stories=document.querySelectorAll('.story');
+const gradients=['gradient-jan','gradient-aug','gradient-sep'];
+let index=0,startX=0;
+
+function checkDOB(){const dob=document.getElementById('dob').value;if(dob===correctDOB){document.getElementById('birthdaySound').play();switchScreen('dob-screen','birthday-screen');loadLottie();}else alert('Oops, try again 😅');}
+function startJourney(){switchScreen('birthday-screen','wrapped');playMusic();}
+function switchScreen(a,b){document.getElementById(a).classList.remove('active');document.getElementById(b).classList.add('active');}
+
+function nextStory(){stories[index].classList.remove('active');index=(index+1)%stories.length;stories[index].classList.add('active');document.getElementById('wrapped').className='screen active '+gradients[index];}
+
+stories.forEach(story=>story.addEventListener('click',nextStory));
+document.addEventListener('touchstart',e=>startX=e.touches[0].clientX);
+document.addEventListener('touchend',e=>{let endX=e.changedTouches[0].clientX;if(endX-startX>50)nextStory();});
+
+function playMusic(){const m=document.getElementById('bgMusic');m.currentTime=0;m.volume=0;m.play();let v=0;const i=setInterval(()=>{if(v<0.6){v+=0.05;m.volume=v}else clearInterval(i)},300)}
+
+function goToEnd(){switchScreen('wrapped','final');}
+function endWrap(){switchScreen('final','photo');const m=document.getElementById('bgMusic');if(m){let v=m.volume;const f=setInterval(()=>{if(v>0.05){v-=0.05;m.volume=v}else{clearInterval(f);m.pause();}},300)}}
+
+function loadLottie(){lottie.loadAnimation({container:document.getElementById('lottie'),renderer:'svg',loop:true,autoplay:true,path:'https://assets9.lottiefiles.com/packages/lf20_xlkxtmul.json'});}
+</script>
+</body>
+</html>
